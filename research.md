@@ -2,6 +2,8 @@
 layout: default
 ---
 
+## Working Papers
+
 3. CEO Narcissism, Human Capital, and Firm Value<br/>
   (With Shane Johnson and Adam Kolasinski)
 > Using a text-based proxy for CEO narcissism, we find that firms with narcissistic CEOs are more likely to experience the turnover of other members of the top management team (TMT). This effect is amplified for TMT members with a pay level closer to that of CEO. Abnormal stock returns at announcements of such departures are positive for short-tenure TMT members, but are negative for long-tenure ones. If TMT members with longer tenure have more valuable human capital, the results suggest a relation between CEO narcissism and the loss of valuable human capital. We find parallel results for non-executive employee layoffs. The results imply important relations between CEO narcissism and the retention of a firm’s valuable human capital.
