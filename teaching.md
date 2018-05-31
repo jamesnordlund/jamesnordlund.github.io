@@ -21,3 +21,8 @@ layout: default
 - Investment Analysis [Texas A&M], Fall 2014
 
 - Corporate Valuation [Texas A&M], Teaching Assistant, Fall 2013 - Spring 2015
+
+## One-off Guest Lectures
+
+- Web Scraping and Textual Analysis (for Finance PhD students at LSU)
+- Introduction to Python for Academic Research (for Accounting PhD students at LSU)
