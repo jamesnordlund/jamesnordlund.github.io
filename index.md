@@ -17,12 +17,13 @@ title: James Nordlund
 ## Skills
 
 - Python
-  - NLTK, Spacy
-  - Keras, TensorFlow
-  - BeautifulSoup
+  - 7+ years: data analytics, web scraping, textual analysis
 - SAS
+  - 5+ years: data analytics
 - Stata
+  - 5+ years: applied microeconometric modelling
 - R
-- Econometrics
+  - 2+ years: statistical modelling
 - Machine Learning
+  - 1+ years: hobby projects
 
