@@ -14,6 +14,14 @@ title: James Nordlund
 * Texas A&M University, Research Assistant, 2011-2017
 * Federal Reserve Bank of Dallas, Research Intern, 2010-2011
 
+## Research Interests
+
+Emprical Corporate, Corporate Governance, Banking
+
+## Teaching Interests
+
+Coroprate Finance, Financial Analytics, Programming for Finance
+
 ## Skills
 
 - Python
