@@ -25,13 +25,12 @@ Coroprate Finance, Financial Analytics, Programming for Finance
 ## Skills
 
 - Python
-  - 7+ years: data analytics, web scraping, textual analysis
-- SAS
-  - 5+ years: data analytics
+    - 8+ years: data analytics, web scraping, textual analysis
 - Stata
-  - 5+ years: applied microeconometric modelling
+    - 7+ years: applied microeconometric modelling
+- SAS
+    - 7+ years: data analytics
 - R
-  - 2+ years: statistical modelling
+    - 3+ years: statistical modelling
 - Machine Learning
-  - 1+ years: hobby projects
-
+    - 1+ years: hobby projects
