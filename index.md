@@ -10,7 +10,7 @@ title: James Nordlund
 
 ## Work
 
-* Louisisana State University, Assistant Professor of Finance, 2017-present
+* Louisiana State University, Assistant Professor of Finance, 2017-present
 * Texas A&M University, Research Assistant, 2011-2017
 * Federal Reserve Bank of Dallas, Research Intern, 2010-2011
 
