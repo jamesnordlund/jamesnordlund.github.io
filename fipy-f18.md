@@ -2,7 +2,7 @@
 layout: inside_course
 ---
 
-## Financial Valuation using Python - Fall 2018
+## Financial Analytics - Fall 2018
 
 This is a hands-on valuation course, suitable to masters students or advanced undergraduates.  The concepts follow the material covered in [Damodaran on Valuation](https://www.wiley.com/en-us/Damodaran+on+Valuation%3A+Security+Analysis+for+Investment+and+Corporate+Finance%2C+2nd+Edition-p-9780471751212).  Students are expected to have taken previous classes in:
 
