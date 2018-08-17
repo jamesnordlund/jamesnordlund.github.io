@@ -4,7 +4,7 @@ layout: default
 
 ## Scheduled Courses
 
-- [Financial Valuation using Python, Fall 2018](/fipy-f18.html)
+- [Financial Analytics, Fall 2018](/fipy-f18.html)
 > This course will provide a rigorous theoretical overview of valuation principles as well as empirical excercises in Python.  Students will complete the semester with a fully-featured Jupyter notebook that uses Python to apply various valuation methods to price a company.  (demo notebook to be posted soon)
 
 ## Previous Courses
