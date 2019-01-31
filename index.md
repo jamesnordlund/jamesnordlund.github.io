@@ -16,11 +16,11 @@ title: James Nordlund
 
 ## Research Interests
 
-Emprical Corporate, Corporate Governance, Banking
+Empirical Corporate, Corporate Governance, Banking
 
 ## Teaching Interests
 
-Coroprate Finance, Financial Analytics, Programming for Finance
+Corporate Finance, Financial Analytics, Programming for Finance
 
 ## Skills
 
