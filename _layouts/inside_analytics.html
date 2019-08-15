@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: "en-US" }}">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    {% seo %}
+    <link rel="stylesheet" href="{{ "/assets/css/style.css?v=" | append: site.github.build_revision | relative_url }}">
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <![endif]-->
+    {% include google-analytics.html %}
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>{{ site.title | default: site.github.repository_name }}</h1>
+        
+	<!--
+        {% if site.logo %}
+          <img src="{{site.logo | relative_url}}" alt="Logo" />
+        {% endif %}
+	<br><br>
+	-->
+	      
+        <p>Financial Economist<br>{{ site.description | default: site.github.project_tagline }}</p>
+	<p>james@nordlund.ai</p>
+	      
+	<ul>
+	  <li><a href="{{ "/" | absolute_url }}">Home</a></li>
+	  <li><a href="research.html">Research</a></li>
+	  <li><a href="teaching.html">Teaching</a></li>
+	</ul>
+
+	<b>Other Ongoing Courses</b></br>
+	</br><u>Theoretical Corporate Finance (Ph.D. level)</u></br>
+		Fall 2017, 2018, 2019</br>
+		This course provides a theoretical overview of the major topics in corporate finance.  Students complete replication excercises in SAS to uncover basic, empirical facts about the corporate world that motivate theoretical models discussed in class.</br>
+	
+	</br><b>Guest Lectures</b></br>
+	<br><u>Web Scraping and Textual Analysis</u></br>
+		For Ph.D. students enrolled in Empirical Corporate Finance.</br>
+	<br><u>Introduction to Python for Academic Research</u></br>
+		For Ph.D. students in the Accounting and Finance programs attending a research methods workshop.</br>
+
+	</br><b>Previous Courses Taught</b></br>
+	</br><u>Valuation (M.S. level)</u></br>
+		Fall 2017</br>
+		This course provides a rigorous theoretical overview of valuation principles, including discounted cash flow methods, multiples, and options-based pricing.</br>
+	</br><u>Investments (B.S. level)</u></br>
+		Fall 2014 (at Texas A&M)</br>
+      </header>
+      <section>
+
+      {{ content }}
+
+      </section>
+      <footer>
+        {% if site.github.is_project_page %}
+        <p>This project is maintained by <a href="{{ site.github.owner_url }}">{{ site.github.owner_name }}</a></p>
+        {% endif %}
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="{{ "/assets/js/scale.fix.js" | relative_url }}"></script>
+  </body>
+</html>
