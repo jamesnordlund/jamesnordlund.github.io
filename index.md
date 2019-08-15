@@ -21,16 +21,3 @@ Empirical Corporate, Corporate Governance, Banking
 ## Teaching Interests
 
 Corporate Finance, Financial Analytics, Programming for Finance
-
-## Skills
-
-- Python
-    - 8+ years: data analytics, web scraping, textual analysis
-- Stata
-    - 7+ years: applied microeconometric modelling
-- SAS
-    - 7+ years: data analytics
-- R
-    - 3+ years: statistical modelling
-- Machine Learning
-    - 1+ years: hobby projects
