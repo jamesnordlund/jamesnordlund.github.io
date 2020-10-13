@@ -20,4 +20,4 @@ Empirical Corporate, Corporate Governance, Banking
 
 ## Teaching Interests
 
-Corporate Finance, Financial Analytics, Programming for Finance
+Finance (corporate, investments, and banking) with an interest in how techonology changes the way we approach problems

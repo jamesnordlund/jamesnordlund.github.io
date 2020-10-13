@@ -2,20 +2,42 @@
 layout: default
 ---
 
+## Publications
+
+2. [Demographic, jurisdictional, and spatial effects on social distancing in the United States during the COVID-19 pandemic](https://journals.plos.org/plosone/article/authors?id=10.1371/journal.pone.0239572)<br/>
+	(with Rajesh Narayanan, R. Kelley Pace, and Dimuthu Ratnadiwakara)<br/>
+	PLOS One, 2020
+
+1. [The efficiency of the benchmark revisions to the current employment statistics (CES) data](https://www.sciencedirect.com/science/article/abs/pii/S0165176511006410)<br/>
+	(with Keith Phillips)<br/>
+	Economics Letters, 2012
+
 ## Working Papers
 
-4. [Demographic, jurisdictional, and spatial effects on social distancing in the United States during the COVID-19 pandemic](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3610397)<br/>
-  (With Rajesh Narayanan, R. Kelley Pace, and Dimuthu Ratnadiwakara)
-> Social distancing, a non-pharmaceutical tactic aimed at reducing the spread of COVID-19, can arise because individuals voluntarily distance from others to avoid contracting the disease.  Alternatively, it can arise because of jurisdictional restrictions imposed by local authorities. We run reduced form models of social distancing as a function of county-level exogenous demographic variables and jurisdictional fixed effects for 49 states to assess the relative contributions of demographic and jurisdictional effects in explaining social distancing behavior. To allow for possible spatial aspects of a contagious disease, we also model the spillovers associated with demographic variables in surrounding counties as well as allow for disturbances that depend upon those in surrounding counties.  We run our models weekly and examine the evolution of the estimated coefficients over time since the onset of the COVID-19 pandemic in the United States. These estimated coefficients express the revealed preferences of individuals who were able to and chose to stay at home to avoid the disease.
+1. [The Disclosure of Cybersecurity Risk](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3077632)<br/>
+	R&R at *Journal of Accounting and Economics*
+> The SEC has expressed concern that some emerging risks -- most notably, cybersecurity risk -- exhibit an insufficient level and quality of disclosure.  Policymakers envision a board role in cybersecurity risk management, but whether that role would effectively improve risk disclosure is an open question.  This paper uses a quasi-natural experiment to investigate whether expertise at the board of directors affects cybersecurity risk disclosure.  I find that the level and quality of risk disclosure increases when the board has more knowledge about the risk.  Thus, board expertise contributes in the identification and disclosure of emerging risk.<br/>
+<b>Presentations:</b> FMA 2018 Annual Meeting, Louisiana State University, Texas A&M University
 
-> Stay-at-home behavior measured using cell phone tracking data exhibits considerable cross-sectional variation, increasing over nine-fold from the end of January 2020 to the end of March 2020, and then decreasing by about 50%  through mid-June 2020.  Our estimation results show that demographic exogenous variables explain substantially more of this variation than predictions from jurisdictional fixed effects.  Moreover, the explanations from demographic exogenous variables and jurisdictional fixed effects show an evolving correlation over the sample period, initially partially offsetting, and eventually reinforcing each other.  Furthermore, the predicted social distance from demographic exogenous variables shows substantial spatial autoregressive dependence, indicating clustering in social distancing behavior. The increased variance of stay-at-home behavior coupled with the high level of spatial dependence can result in relatively intense hotspots and coldspots of social distance, which has implications for disease spread and mitigation.
+2. [CEO Narcissism, Human Capital, and Firm Value](https://papers.ssrn.com/abstract=3209882)<br/>
+  (with Shane Johnson and Adam Kolasinski)<br/>
+  R&R at *Review of Finance*
+> Firms with narcissistic CEOs are more likely to experience the turnover of non-CEO executives; this effect is amplified for executives with pay closer to the CEO’s pay. Stock price reactions to narcissism-induced departures are more negative the longer the non-CEO executive’s tenure. If long-tenured non-CEO executives have more valuable human capital, the results imply a relation between CEO narcissism and the loss of valuable human capital. We find parallel results for mass layoffs of non-executive, rank-and-file employees. Our findings imply that CEO narcissism impacts firm value through its effect on the retention of valuable human capital.<br/>
+<b>Presentations:</b> Louisiana State University, Texas A&M University
 
-3. [CEO Narcissism, Human Capital, and Firm Value](https://papers.ssrn.com/abstract=3209882)<br/>
-  (With Shane Johnson and Adam Kolasinski)
-> Firms with narcissistic CEOs are more likely to experience the turnover of non-CEO executives; this effect is amplified for executives with pay closer to the CEO’s pay. Stock price reactions to narcissism-induced departures are more negative the longer the non-CEO executive’s tenure. If long-tenured non-CEO executives have more valuable human capital, the results imply a relation between CEO narcissism and the loss of valuable human capital. We find parallel results for mass layoffs of non-executive, rank-and-file employees. Our findings imply that CEO narcissism impacts firm value through its effect on the retention of valuable human capital.<br/><b>Presentations:</b> Louisiana State University, Texas A&M University
-
-2. [Spillovers from Creditor Control](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2866505)
+3. [Spillovers from Creditor Control](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2866505)
 > I test for causal spillover effects of creditor control following loan covenant violation using a hierarchical matching estimator that is new to the finance literature. Other estimation approaches (e.g. regression discontinuity) explicitly assume away spillover effects, and produce biased estimates when spillovers are present. I find that firms increase debt issuance and investment in response to rival firm covenant violation, and that these firms experience an increase in sales growth. Because causal identification is limited to non-violating rival firms who were just as likely to violate a covenant, this effect is novel from the "deep-pocket" mechanism in the earlier literature.<br/><b>Presentations:</b> Louisiana State University, Texas A&M University, Texas Tech University, University of Melbourne, University of Sydney
 
-1. [The Disclosure of Cybersecurity Risk](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3077632)
-> The SEC has expressed concern that some emerging risks -- most notably, cybersecurity risk -- exhibit an insufficient level and quality of disclosure.  Policymakers envision a board role in cybersecurity risk management, but whether that role would effectively improve risk disclosure is an open question.  This paper uses a quasi-natural experiment to investigate whether expertise at the board of directors affects cybersecurity risk disclosure.  I find that the level and quality of risk disclosure increases when the board has more knowledge about the risk.  Thus, board expertise contributes in the identification and disclosure of emerging risk.<br/><b>Presentations:</b> FMA 2018 Annual Meeting, Louisiana State University, Texas A&M University
+4. Reputation and the labor market for corporate directors<br/>
+	(with Shradha Bindal)
+> Using a network regression framework that allows for joint determination of <ins>all</ins> appointments of directors to firms, we find that there is two-sided matching in board appointments based on a director's and a firm's reputation for being management or shareholder friendly.  A director is 17 times more likely to join a firm's board when the director and the firm share similar reputations.  The likelihood of matching is stronger when coordination costs for rejecting mismatched directors are lower.  Moreover, consistent with theory, we find that a reputational shock to a subset of firms has economy-wide effects on the incentives for directors to change their reputations.  Finally, we find that presence of blockholders that have private information about the directors mitigate concerns about mismatch.
+
+
+
+## Work in Progress
+
+1. Cybersecurity Events and Bank Deposits<br/>
+	(with Rajesh Narayanan)
+
+2. Auditor liability and management earnings forecasts<br/>
+	(with Zhihong Chen and Nan Yang)
