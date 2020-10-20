@@ -6,6 +6,8 @@ layout: default
 
 **Financial Analytics**
 
+My textbook-in-progress is available at [financedatascience.github.io](https://financedatascience.github.io/intro.html).
+
 Fall 2020 (previously: Spring 2017, Fall 2018, Fall 2019)
 
 Masters and Advanced Undergraduate Level
