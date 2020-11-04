@@ -22,6 +22,8 @@ For tasks such as:
 
 - fixed income analysis
 - sentiment analysis in equity markets
+- real estate pricing
+- portfolio analysis
 
 Work related to this course lead to a $21,000 grant from the university to purchase a 64-core, 256GB RAM server for advanced instruction in computational finance.
 
