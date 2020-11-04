@@ -6,7 +6,7 @@ layout: default
 
 **Financial Analytics**
 
-Lecture notes available at [financedatascience.github.io](https://financedatascience.github.io/intro.html).
+Lecture notes available at [financedatascience.github.io](https://financedatascience.github.io/intro.html).  These notes are for the current (Fall 2020) semester.  Notes are first distributed via course lecture videos, so the completed notes here are updated with a delay to encourage class participation.  Advanced levels of this course (offered only to masters students) include different topics from the material included here, and the content varies year-by-year depending on student interest.  For example, Spring 2017 focused more heavily on option pricing and market sentiment analysis, while Fall 2018 emphasized valuation and simulation of pro forma statements.
 
 Fall 2020 (previously: Spring 2017, Fall 2018, Fall 2019)
 
