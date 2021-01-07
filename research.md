@@ -30,7 +30,7 @@ layout: default
 
 4. Reputation and the Labor Market for Corporate Directors<br/>
 	(with Shradha Bindal)
-> Using a network regression framework that allows for joint determination of \textit{all} possible appointments of directors to firms, we find that there is two-sided matching in board appointments.  A director is 14.5 times more likely to join a firm's board when the director and the firm share similar reputations for management friendliness.  Reputational matching between directors and firms is more important when coordination costs for rejecting mismatched directors are lower.  Directors are more likely to take on board appointments at firms where the appointment would shift the director's reputation towards her target reputation.  Moreover, consistent with theory, we find that a reputational shock to a subset of firms has economy-wide effects on the incentives for directors to change their reputations.
+> Using a network regression framework that allows for joint determination of *all* possible appointments of directors to firms, we find that there is two-sided matching in board appointments.  A director is 14.5 times more likely to join a firm's board when the director and the firm share similar reputations for management friendliness.  Reputational matching between directors and firms is more important when coordination costs for rejecting mismatched directors are lower.  Directors are more likely to take on board appointments at firms where the appointment would shift the director's reputation towards her target reputation.  Moreover, consistent with theory, we find that a reputational shock to a subset of firms has economy-wide effects on the incentives for directors to change their reputations.
 
 
 
