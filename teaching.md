@@ -4,32 +4,19 @@ layout: default
 
 ## Current Courses
 
-**Financial Analytics**
+**Financial Modeling and Analytics Using Python**
 
-Lecture notes available at [financedatascience.github.io](https://financedatascience.github.io/intro.html).  These notes are for the current (Fall 2020) semester.  Notes are first distributed via course lecture videos, so the completed notes here are updated with a delay to encourage class participation.  Advanced levels of this course (offered only to masters students) include different topics from the material included here, and the content varies year-by-year depending on student interest.  For example, Spring 2017 focused more heavily on option pricing and market sentiment analysis, while Fall 2018 emphasized valuation and simulation of pro forma statements.
+Lecture notes for this course are currently being migrated over to my new teaching website [learning-fin.tech](https://learning-fin.tech).  The site also hosts documentation for the `ether_real_estate` package that I wrote for teaching blockchain technology via an investment simulation game (the package is available on PyPI).
 
-Fall 2020 (previously: Spring 2017, Fall 2018, Fall 2019)
+Work related to this course has earned two university grants:
+1.  A $21,000 grant to purchase a 64-core, 256GB RAM server for advanced instruction in computational finance
+2.  A $50,000 grant to purchase interactive instructional hardware (e.g. smart whiteboards) for enhanced opportunities for student engagement
 
-Masters and Advanced Undergraduate Level
-
-In Python 3:
-
-- collect data (`requests`, `pandas_datareader`, `urllib`)
-- organize and clean data (`pandas`, `BeautifulSoup`, `nltk`)
-- analyze data (`seaborn`,  `statsmodels`)
-
-For tasks such as:
-
-- fixed income analysis
-- sentiment analysis in equity markets
-- real estate pricing
-- portfolio analysis
-
-Work related to this course lead to a $21,000 grant from the university to purchase a 64-core, 256GB RAM server for advanced instruction in computational finance.
+The faculty voted to require this course for all finance majors after one year of my teaching the course as an elective topic.
 
 **Corporate Finance Theory**
 
-Fall 2020 (previously: Fall 2017, Fall 2018, Fall 2019)
+Fall 2021 (previously: Fall 2017-2020)
 
 PhD Level
 
@@ -40,18 +27,22 @@ PhD Level
 
 ## Previous Courses and Guest Lectures
 
-**Valuation**
+**Courses**
+
+*Valuation*
 - Fall 2017
 - Masters Level
 
-**Investments**
+*Investments*
 - Fall 2014
 - Undergraduate Level
 
+**Lectures**
+
 *Introduction to Python for Academic Research*
 - Summer 2018
-- guest lecture, Accounting Doctoral Seminar
+- Accounting Doctoral Seminar
 
 *Web Scraping and Textual Analysis*
 - Spring 2018
-- guest lecture, Empirical Corporate PhD Course
+- Empirical Corporate PhD Course
