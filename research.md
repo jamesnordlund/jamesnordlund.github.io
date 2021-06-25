@@ -16,7 +16,7 @@ layout: default
 
 1. [The Disclosure of Cybersecurity Risk](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3077632)<br/>
 	R&R at *Journal of Accounting and Economics*
-> The SEC has expressed concern that some emerging risks -- most notably, cybersecurity risk -- exhibit an insufficient level and quality of disclosure.  Policymakers envision a board role in cybersecurity risk management, but whether that role would effectively improve risk disclosure is an open question.  This paper uses a quasi-natural experiment to investigate whether expertise at the board of directors affects cybersecurity risk disclosure.  I find that the level and quality of risk disclosure increases when the board has more knowledge about the risk.  Thus, board expertise contributes in the identification and disclosure of emerging risk.<br/>
+> Following a data breach, interlocking firms are more likely to disclose exposure to cybersecurity risk in their annual report.  Firms connected by auditors, via economic rivalry, or along a supply chain do not show similar disclosure propagation.  The evidence suggests that disclosure propagation over interlocking firms is driven by a director’s self-interests or by a behavioral response to cybersecurity risk saliency, rather than by an improved monitoring for risk exposure.  This finding sheds insight into the expanding length of risk factor disclosures and suggests that not all of this growth may be in the best interests of shareholders.<br/>
 <b>Presentations:</b> FMA 2018 Annual Meeting, Louisiana State University, Texas A&M University
 
 2. [CEO Narcissism, Human Capital, and Firm Value](https://papers.ssrn.com/abstract=3209882)<br/>
