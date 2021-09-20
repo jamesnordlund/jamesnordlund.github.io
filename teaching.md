@@ -6,11 +6,13 @@ layout: default
 
 **Financial Modeling and Analytics Using Python**
 
-Lecture notes for this course are currently being migrated over to my new teaching website [learning-fin.tech](https://learning-fin.tech).  The site also hosts documentation for the `ether_real_estate` package that I wrote for teaching blockchain technology via an investment simulation game (the package is available on PyPI).
+Lecture notes for this course are currently being migrated over to my new teaching website [learning-fin.tech](https://learning-fin.tech).  To ensure class attendance this fall, notes will only be moved over once the corresponding chapter has been covered in class.  The site also hosts documentation for the `ether_real_estate` package that I wrote for teaching blockchain technology via an investment simulation game (the package is available on PyPI).
 
-Work related to this course has earned two university grants:
-1.  A $21,000 grant to purchase a 64-core, 256GB RAM server for advanced instruction in computational finance
-2.  A $50,000 grant to purchase interactive instructional hardware (e.g. smart whiteboards) for enhanced opportunities for student engagement
+Work related to this course has earned:
+1.  A $50,000 grant to purchase interactive instructional hardware (e.g. smart whiteboards) for enhanced opportunities for student engagement
+2.  A $21,000 grant to purchase a 64-core, 256GB RAM server for advanced instruction in computational finance
+3.  A $5,000 award to create a fully online and asynchronous version of the course for the LSU Online program (online degrees/certificates offered by LSU)
+4.  A $3,000 department investment into teaching materials (DSLR camera, lightboard, etc.) for recording lectures
 
 The faculty voted to require this course for all finance majors after one year of my teaching the course as an elective topic.
 
