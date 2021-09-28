@@ -6,7 +6,7 @@ layout: default
 
 **Financial Modeling and Analytics Using Python**
 
-Lecture notes for this course are currently being migrated over to my new teaching website [learning-fin.tech](https://learning-fin.tech).  To ensure class attendance this fall, notes will only be moved over once the corresponding chapter has been covered in class.  The site also hosts documentation for the `ether_real_estate` package that I wrote for teaching blockchain technology via an investment simulation game (the package is available on PyPI).
+Lecture notes for this course are currently being migrated over to my new teaching website [learning-fin.tech](https://learning-fin.tech).  The site also hosts documentation for the `ether_real_estate` package that I wrote for teaching blockchain technology via an investment simulation game (the package is available on PyPI).
 
 Work related to this course has earned:
 1.  A $50,000 grant to purchase interactive instructional hardware (e.g. smart whiteboards) for enhanced opportunities for student engagement
