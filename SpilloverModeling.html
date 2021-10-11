@@ -14751,7 +14751,7 @@ Log likelihood = -15143.716                           Pseudo R2     =   0.3304
 </div>
 <div class="jp-Cell-inputWrapper"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput " data-mime-type="text/markdown">
-<p>We can now estimate a dose response function on $E[y(0,\rho)]$ with covariate $w$.  Recall that $x$ predicts firm-level treatment and was correlated with $w$, so $w$ should predict industry-quarter level treatment $\rho$.</p>
+<p>We can now estimate a dose response function on $E[y(0,\rho)]$ with covariate $w$.  Recall that $x$ predicts firm-level treatment and was correlated with $w$, so $w$ should predict industry-quarter level treatment $\rho$.  To speed things along, I've specified `flag(0)` to turn off covariate balancing tests (since we know that, by construction, $w$ is sufficient to balance over $\rho$).</p>
 
 </div>
 </div><div class="jp-Cell jp-CodeCell jp-Notebook-cell   ">
