@@ -25,6 +25,7 @@ layout: default
 <b>Presentations:</b> FMA 2018 Annual Meeting, Louisiana State University, Texas A&M University
 
 3. [Spillovers from Creditor Control](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2866505)
+<br/>Example code: [Spillover Modeling](https://nordlund.ai/SpilloverModeling)
 > A loan covenant violation is informative to parties outside of the lender-firm pair that agreed to the covenant term.  Using a hierarchical matching estimator to measure causal spillover effects from covenant violation, I find that covenant violators have more severe reductions in financing and investment when a greater fraction of rival firms are also in violation of a covenant.  Consistent with the ex post utilization of peer violation rates to inform the renegotiation decision, I find that, ex ante, creditors use stricter covenants on new loans when uncertainty about industry risk is high and a shorter effective maturity is desirable.  I also find that causal spillover effects to non-violators are beneficial in that non-violators capture market share relative to violators in response to peer firm violation.
 
 4. Reputation and the Labor Market for Corporate Directors<br/>
