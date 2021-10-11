@@ -45,6 +45,7 @@ layout: default
 
 2. Auditor liability and management earnings forecasts<br/>
 	(with Zhihong Chen and Nan Yang)
+<br/>Example code: [Garmmar in Python](https://nordlund.ai/GrammarInPython)
 
 3. Local Yield Curves<br/>
 	(with Rajesh Narayanan)
