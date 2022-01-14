@@ -35,8 +35,7 @@ layout: default
 
 5. When Does Common Ownership Matter<br/>
 	(with Shradha Bindal)
-> We find that the effects of common ownership vary depending on firms' product market characteristics. When firms are in a more competitive industry, marked by lower product differentiability, higher rates of common ownership lead to higher prices.  In these environments, firms also lower research and development expenditures and benefit from higher profitability. We use mergers and acquisitions of financial institutions as a quasi-natural experiment to exogenously vary a firm's common ownership levels and establish causality. Our findings suggest that any regulation to curb the anticompetitive effects of common ownership needs more industry-level consideration and should take into account the product-market characteristics of firms.
-
+> We find that the effects of common ownership vary by a firm's product market characteristics.  Quasi-random increases in common ownership lead to stronger decreases in R\&D and increases in prices and profitability when a firm has similar products. We find that the effects of common ownership are more pronounced for firms with similar (less differentiated) products when competitive threats are high: our results are stronger for industries with lower concentration, higher advertising intensity, or lower investment intensity.  Our findings highlight the importance of considering the product market characteristics of a firm and its industry when studying common ownership. 
 
 
 ## Work in Progress
