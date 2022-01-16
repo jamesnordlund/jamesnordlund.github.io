@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <link rel="stylesheet" href="/assets/css/main.css">
+        <title>Nordlund</title>
+
+        <h1 class="post-headline">James Nordlund</h1>
+        <h3 class="post-description"></h3>
+
+        <div class="links scroll">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/research">Research</a>
+        <a href="/teaching">Teaching</a>
+        <a href="/projects/">Projects</a>
+        <a href="/blog/">Blog</a>
+        <!--<a href="/archive/">Archive</a>-->
+</div>
+
+
+        <!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>The ether_real_estate Module | James Nordlund</title>
+<meta name="generator" content="Jekyll v4.2.1" />
+<meta property="og:title" content="The ether_real_estate Module" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A Python game with CRE transactions over Ethereum" />
+<meta property="og:description" content="A Python game with CRE transactions over Ethereum" />
+<link rel="canonical" href="http://localhost:4000/projects/2021-06-14-Ether_Real_Estate/" />
+<meta property="og:url" content="http://localhost:4000/projects/2021-06-14-Ether_Real_Estate/" />
+<meta property="og:site_name" content="James Nordlund" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-06-14T00:00:00-05:00" />
+<meta name="twitter:card" content="summary" />
+<meta property="twitter:title" content="The ether_real_estate Module" />
+<meta name="twitter:site" content="@" />
+<script type="application/ld+json">
+{"headline":"The ether_real_estate Module","dateModified":"2021-06-14T00:00:00-05:00","datePublished":"2021-06-14T00:00:00-05:00","url":"http://localhost:4000/projects/2021-06-14-Ether_Real_Estate/","@type":"BlogPosting","description":"A Python game with CRE transactions over Ethereum","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/projects/2021-06-14-Ether_Real_Estate/"},"@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+        <!-- Generated using https://favicon.io/ -->
+
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png?">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png?">
+<link rel="manifest" href=site.webmanifest">
+
+
+        <!-- MathJax -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+  <script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+     processEscapes: true
+    }
+  });
+</script>
+
+
+        <!-- Load fontawesome here for faster loadtimes: https://stackoverflow.com/a/35880730/9523246 -->
+        <script type="text/javascript"> (function() { var css = document.createElement('link'); css.href = 'https://use.fontawesome.com/releases/v5.11.0/css/all.css'; css.rel = 'stylesheet'; css.type = 'text/css'; document.getElementsByTagName('head')[0].appendChild(css); })(); </script>
+
+    </head>
+
+    <body>
+        <main>
+            <article>
+                <h1 class="post-headline">The ether_real_estate Module</h1>
+<p class="meta"><small>June 14, 2021</small></p>
+
+<p><strong>Live Demo Available Here:</strong> <a href="https://colab.research.google.com/drive/1JrxzION-IYhCAkk3uGm8ncADZckmTfs2?usp=sharing" target="_blank" rel="noopener noreferrer"><img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab"></a></p>
+
+<p>This software simulates a game in which players purchase properties that rent out real estate to businesses.  When leases expire, players submit bids to the firm for a new lease, and the winning player adds the firm to one of their properties for the duration of the lease.</p>
+
+<p>All transactions take place on a private Ethereum blockchain, which allows students to explore blockchain technology as a ledger for recording transactions.</p>
+
+<h2 id="loading-the-game">Loading the Game</h2>
+<p>The key blockchain component of the game utilizes the <a href="https://github.com/ethereum/eth-tester" target="_blank" rel="noopener noreferrer">eth-tester</a> module.
+The module makes use of the <a href="https://github.com/ethereum/py-evm" target="_blank" rel="noopener noreferrer">pyEVM</a> backend, which is currently listed in an experimental (alpha) stage.
+The <code class="language-plaintext highlighter-rouge">eth-tester</code> module is Linux-only for now.
+There are ways to run the game on Windows by interfacing with something like <a href="https://www.trufflesuite.com/ganache" target="_blank" rel="noopener noreferrer">Ganache</a> in the Truffle Suite for Ethereum development, and a later version of <code class="language-plaintext highlighter-rouge">ether_real_estate</code> will enable this functionality.</p>
+
+<p>Install the following packages from PyPI.  Because <code class="language-plaintext highlighter-rouge">ether_real_estate</code> and some of its core dependencies (<code class="language-plaintext highlighter-rouge">eth-hash</code>, <code class="language-plaintext highlighter-rouge">eth-tester</code>, <code class="language-plaintext highlighter-rouge">py-evm</code>) are in early development, the <code class="language-plaintext highlighter-rouge">ether_real_estate</code> module is picky about version numbering for dependencies.  Create a virtual environment if you want to use other versions of the dependency packages for other projects that will not make use of <code class="language-plaintext highlighter-rouge">ether_real_estate</code>.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">ether_real_estate</span>
+<span class="err">!</span><span class="n">pip</span> <span class="n">install</span> <span class="n">eth</span><span class="o">-</span><span class="nb">hash</span><span class="p">[</span><span class="n">pycryptodome</span><span class="p">]</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Installing collected packages: pyethash, eth-typing, eth-hash, cytoolz, eth-utils, mypy-extensions, py-ecc, eth-keys, hexbytes, rlp, trie, blake2b-py, eth-bloom, lru-dict, py-evm, parsimonious, eth-abi, semantic-version, eth-tester, ether-real-estate
+...
+Installing collected packages: pycryptodome
+</code></pre></div></div>
+
+<p>Then load the module.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">ether_real_estate</span>
+</code></pre></div></div>
+
+<p>A couple notes about how the game runs:</p>
+<ul>
+  <li>Transactions are handled by the game directly.  In a later version, transactions will be auto-enforced via smart contracts in Vyper so that students can learn about that aspect of blockchain development.</li>
+  <li>Gas prices are currently set to zero to keep things simple.  Variable gas prices will be added later to simulate transaction costs.</li>
+</ul>
+
+<p>The game will save/read data from a user-specified directory.  On Google Colab, you can use Google Drive directories, once they are mounted into Python.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">google.colab</span> <span class="kn">import</span> <span class="n">drive</span>
+<span class="n">drive</span><span class="p">.</span><span class="n">mount</span><span class="p">(</span><span class="s">'/content/drive'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Mounted at /content/drive
+</code></pre></div></div>
+
+<h2 id="instantiating-the-game">Instantiating the Game</h2>
+<p>A new <code class="language-plaintext highlighter-rouge">Game</code> object, <code class="language-plaintext highlighter-rouge">g</code>, is created below.  Options for the <code class="language-plaintext highlighter-rouge">Game</code> object are:</p>
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">num_industry</code> (default = <code class="language-plaintext highlighter-rouge">5</code>)
+    <ul>
+      <li>Number of industries in the game.  Firm cash flows are partially correlated within an industry.</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">num_players</code> (default = <code class="language-plaintext highlighter-rouge">5</code>)
+    <ul>
+      <li>Number of human players in the game.  This should be set to either the number of students in the class or the number of groups in the class (if working in teams).</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">num_ai</code> (default = <code class="language-plaintext highlighter-rouge">0</code>)
+    <ul>
+      <li>Number of AI players in the game.</li>
+      <li>AI players can comprise the full user list if testing the game.</li>
+      <li>Alternatively, AIs can be added to student games for small classes.</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">verbose</code> (default = <code class="language-plaintext highlighter-rouge">False</code>)
+    <ul>
+      <li>If <code class="language-plaintext highlighter-rouge">True</code>, print out extra information at each step of the game.  Useful for testing.</li>
+    </ul>
+  </li>
+  <li>
+<code class="language-plaintext highlighter-rouge">game_path</code> (default = <code class="language-plaintext highlighter-rouge">''</code>)
+    <ul>
+      <li>Path to store game data</li>
+      <li>If left blank, the user will be asked to provide one (or a default will be suggested).</li>
+    </ul>
+  </li>
+</ul>
+
+<p>Some notes about the economy:</p>
+<ul>
+  <li>There will be 3 times as many buildings are there are players.</li>
+  <li>There will be 20% more firms than can fit in all of the buildings.</li>
+</ul>
+
+<p>The command below creates an all-AI game for testing purposes.  I specify <code class="language-plaintext highlighter-rouge">5</code> industries, <code class="language-plaintext highlighter-rouge">0</code> players, <code class="language-plaintext highlighter-rouge">5</code> AI players, and a game folder <code class="language-plaintext highlighter-rouge">test</code> set under a directory on my Google Drive.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">g</span> <span class="o">=</span> <span class="n">ether_real_estate</span><span class="p">.</span><span class="n">Game</span><span class="p">(</span><span class="n">num_industry</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">num_players</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">num_ai</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">game_path</span><span class="o">=</span><span class="s">'/content/drive/My Drive/Ether Real Estate test'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Starting deposit transactions: ('0xdfa31356f05b5d3c92b16f16da734ba0502a298204e389c6eeb594df23569cb9', '0xc01d9e4c94d74a31b59f00d6831a8e450ebc146e1f009d8c6d556b44d3d323e1', '0xbe13f9d2a0c053161e14ae88c4a495d279d8875f898755b8f77d1707d67abd5c', '0x48337d820bc1471b7482592123eaa3a472526420afe458d1d5d8ca860a8cad9c', '0xb97a5ab3ca3ab66362ba78715c11d495627d4a4b4bf8734825f59e82dae0b46f', '0x54c05d54d2c4ba082d833793bd8875e9ae8e7c5ba77df6eb67f2b7e54ffa2be6', '0xaf533ebdbbf7f57920b0acb964b9c4ac03c8e2101a137b1fa8caade0adca7bc7', '0x9d0f8195d51803e91ef41b3838fa70f9b23509c3154ae2f42cbfbd14f5908901', '0xb5105feccc9a0bfd9ca45d56b9584d67e9ce49bfa460de024f2389495c80912e', '0xf74f69ca5d8db770c8531800c14a8633ad420707716cf0edbf0832f864108816', '0x7b9d3e1d3b25795ab99c58735d7c631a94dc617f7beafc081afd50345a4958dd', '0x9428ba16aa0d33d045fb92a54856c5aff9b4e8284dfe43634617f48f2117c50a', '0x3c84f1b236ccf522f1d99b803919b413aa2d7327abca8134d4e92c32205375f3', '0x445ee3b93ccf58987c2fdf5001e7101a364a2420dd94b7f482103cc2a81f733f', '0x68b42c9266f8f810f45435b929ea8f65854d33364b6942cfe44bb1091a95daa4', '0x0a97d9108a5fa6bd96ca78c0ab698ff6300aded0812bee49b18651ae1bcccab8', '0x1ff8ee25ae9397d1027d8a0386bafaefa757404d3cd1e3ed4c0c62e3e6a13f31', '0x88679d43ec9f1dc0eb7183848c7796cc3839492eb1d77a26eb10a6fc17b5ef4d', '0xd2ccd72e16522c13cc8e767e3e457836f97fa27a0a9b64cd59fccc461d7a4085', '0xac89e4bd40ee2dab3112baa63a9695620407ab65203d1c26aed5ad9832be879b', '0xd4ead0203bff178f6f226eab7eb88ed42e376ea37da7b0275b9481c1331589e0', '0x0d3a27938fec4cb845750d4688aa8077306f2dd6329dc5e77846ad45c422265e', '0xab28fc24f57ae3a1b9d7b06014daeba84c9e067a1c55635b2787897fad88bbea', '0x97e21c187c7f2cec040fac4cfbb60a065a4df0f354c26b103e215663618c67f7', '0x5bc7b3622cc437a3b0c87c1b41406121561c200e29ffa9c8a3b98d1995bc6485', '0x0fcde7f7103664574a57a6fc1e838d77bca04d356af1efbbfb338258581ac3a7', '0x158a20ba931b9fd106ddfff241cf26526cb2c4b6fa5631802e8c9d54cceb6cdc', '0xfb57629613e4882ef1e332787b27de69b27f3331b1719fa230a390f861004afc', '0x3bec1391bd15849201ff6847e7ba9efb37cfc76581e675f2914dc2b5595e69c1', '0xac52783398f6a445f5dda9963a152c5cab8523ad61d00dbadbfd57110d28a196', '0x5ab686df0e5a745a47a8722416e59cc75a14d678afdf8ad53b92a8690f13c601', '0x1c39fdc4b2c5360880e94c63bad68a63aaf635f72012523037b29fbc902dab70', '0x3974951ed1624884f8c3b4a714bfe1058a277495d1dda6c790b4d4dfb79ca6e6', '0xca88894a42e8c42631d8f6dfc5627ec85e5e6027557e8d76a436b7aee01f487c', '0x76be846dcdc24cedd5623aad2887b34636e8de4d30708d672e3ef81ed8f8337f', '0x11cb1f3ce2c0f0c290e4a8d85b6dd6ee876fd3dbd03378a13bdabb7fa3a641ce', '0xc92e65ba5ea25aabe75622e3a647c3148152ec8f5c970a19239a754d12d2a39b', '0xa896f0e980113136429bad775f28eb61cdfd99f796bc941b6a2084d52adbfcd4', '0x8fe3294ff311d28cf124c3ff2dfce9f6670a14379198e4e898c6fa39d9b21164', '0xd79ba1696f817f2f0706ee2af50d26524f844047b85e889a0eab1ce24cb149ed', '0xa85e52f738c63fa6f7011cedf8a48a2020d9f3f3b9d0e215922236f97af8b6df', '0xc2dfe635c8859d23de0acadb269cf4bc63265440448bff27d99b4d17b2ec8e8e', '0xa6ee7490cdd3c138c3c4b467dd7c8565967efecb00ff448af301f159cbcfdcc9', '0x2cf1ad90b069bde4d76b9ab553f15544d018a698c63505438214890415324adc', '0x42bcab47ce3d2b8e0e07deddf0e6f415c00de688337d52591f42fc415ab78e0c', '0x267e331009564560809d7b364b31cbcde04ace330f24a880a97c1000c284b9ef', '0xd5b272f1d41be6eae7e6c657cffd4c84aab48737db35944b454ded0bc92b7842', '0xabbe0d166a1a44f91290a1e9220c2c6fb633d80b0d9eaede3dc02d976a10e4c7', '0xb158200632339e534233bd3d000928425d5738b974065550eea905ddda1015f0', '0x418c285639f41a49a6f080ed2a0d3603bac5ed55617645b99d4257a924640d74', '0x00ef47c7f89472fa258e0a727fd72d9969c343e92b099c649be0c7531792b082', '0x08b331e68179555912f52dad622d51095ca32099e568b5285a3160c220448650', '0xa00b5b1f252b8950ce4ce179b9fb08b870f013e768d748e889cf9ef33e30ba74', '0x05d0ced604bacad4742e4cfc735b12a28dd9d69406daeddc3c05749c5717d4c7', '0xc96a45aab0a2ee9f74cbf983d85f899d18c391ba5c0d82bf653c279ba2d01d93', '0xf175a94111b08d188052a7ce0fa62a5a684470c9c7d41e56b490a674140bc577', '0x2ebe34130e7d9d665c82c28215ea923db7a5917f7cf09895c5c4fdf2833bd4e6', '0xc42dfa67cf44b8de778732a5f32c325d3b63a2ee2fb3301ac68542a3bd0a33c6', '0xbb28e4b4a0a6647c399c99bba7e2b47b910e380b1f811503f7f13e2384ee9927', '0xbfd57c7ced14d084da6add60cf056a0a7413c864fd5aaa8ad243be37d40be250', '0xb12cc265d11cf769d6e6d435514ec8d6932756a157892dd9f56c50a2efb21294', '0xd40cea6f39ff4a1eff9854ec3b35917597f9ce862ee38340eef35c49f421e06d', '0xcf07beeb8e548c4d664a48d9a9275f10c55039c559d08d73ba97371cd98e939a', '0x80e1a02ebcbbbac2a6daa073509cb9af5d5cdd9bc0cad23ce252975e7bd41083', '0x16184b7955c8d8a6aa8563c5e071ee992913f32afea862e0b2b40a5c421918e7', '0xd8fbb09ed1581e64ca0ee5791abb8d3c355db6fbfd8376885d1ea102ae5c861b', '0x788918e1501383d579b1a80050401d28dead62fb97dc51f8ac79b8ab37ea788c', '0x6cc16ea4a0a1c8259781c73c47a35f838e88853f701163b1dfa46cf5613e2ae5', '0xcc700971df9da59ba7abdf400409325c288fd01e28dba0482720d91d1042ea0e', '0x3758a9e488ede9e5908612cf8369035cb18c753e99445223ffd001e3c3197c32', '0x70c17fa84e488f6f412be42b2b02242e1c6b658e81ea65bb9f0248827d8abc68', '0x07c07216bd6240e0606fdfdb5972e189fd65d46eaee64009439c7bc431d8433f', '0xdd939e9bd69cd91a2ca31f0d0f120f9e858f45e6ea4bdf04a22dfbc1df62f2fe', '0x56d7bf97a953cacf23db353faff268f8e52abb7eb9f2c291e32af6511a86a6b7', '0xaf5f1b11cc055797e1ffeaf830b3e1367850f5c317dea626089ffdb87569e00c', '0xcbc73ae5a43f87d716e67110242f826743c8768d30386961600d223bdf39178d', '0x72c9a9fa9480cac5fb3e8ab05d3fabd50c19e000a08bc7d1ef75ff96331dedd6', '0xd37a0a3851d46c6f40b80e28776bd344cfb65748f77d75adc187ea6826b4b9cd', '0x4f98bdb9370ece6cdcbbb7215f7b3769c66367429daf73ccffed526f4bcbd34d', '0x33433904af79a746f1ac8e8feb477d33ac3ee9ef081482a014d7c2e532fb35f1', '0xbc5c9fe2b29e0e37400485c7612ae13ae5b8a0961b64b3b7cefc4f7f7b4303bf', '0x429d65bff348c7b258199d406de55bfc892368fe1648d11d8e23e8ef2f2291ac', '0xb7b8aa81b83669a5834afc00928b25ee5264498d7da0b9631523890980c0503c', '0x73f63fcfceb405f988602efe0b0791379f5b99520f84def04e83a6bad16cb446', '0xde19b120ae5000702c5ada7cc3985f574146cf0a38a183976fb5f38e9d460235', '0xcbc10d4a4dcff314d3bc12919ff185ad075b711e4eb745ad8eb44491d0d6785a', '0x974986bdc71ef8ec172becf212f64b06a51e4c327bd16f6abf13aa67c2954319', '0xb459f0c1299bfeac283550432c6fa7bf35712142684641f871bdb98e5f88716d', '0xe627924d302ab0ca869805092ed051f819a677adba3dc2085d09cd9204f475d9', '0x5e0ac74d9468b61b09fb26318fffc9e8c3c2c2a82ded86dcc7cfe14b58b440c7', '0xdd2651c40a6e10c697799152357f4e7f042920067a63116793a883f76007ec88', '0x82e4f5dc7bd5fb8ca24b3ce2faf51aa6348c84c71e79a727cc305be1c1f4497c', '0xb01ebecbe3ea67df00d9677aed75bd240b06475b09fcf3957e67605ae4aa0a2c', '0xf923eca4a84cf3fe02a7c22ba56b73f576ca60f86309384100129030f1bb6dce', '0x45b40a288add9a0930a634509e232ffe9f4031e9ac5d915abffe9bed35eacf14', '0xc4cd14a35deba8778258233b32f002f2a8ca5e69a4229b1848cef19c70e43d11', '0xf42bf560ea8b4dbf75d6111b1f3dd5a96cb83ce45f5d750675b929364d7d0854', '0x5470b327c4fbcf7d5ec8376d04c6c7407a736576df8346906f4684ae9f8f20bf', '0x3e5301dce9e9d4e9c189089ef4f3fa7b9806f2ffe3d67a3d653cace523f092ce', '0xe594fef628f925555133b04c6ea1be75b550326e1f98f6dda49fe8fbbdf76265', '0x4f061c9195636689deae812684c2b0d4d1beb78a28c6ed0d5b53ea879262a6f3', '0x85a07b42d996754a711d575ae4ab5ce815cf68d88ac44e4788b35abbf091593c', '0x1a8968399c1068573fa670d20fa2d944084abd3d7bc93b97a34c6cc9b9161363', '0x38b3eae4a504683bc6940c9499e6a205d971b50a6836b2f266de36d3e69c7623', '0x0782f6ac37ca2b5002599e2b27e6c98d4048ee993ce779473040caca91ddb995', '0xc742776ac0f135e87a193ab7d5adf3a7c53e6082f909f729ebc93041b7836552', '0xae51eb574759f17711179b9c93b898639c51082d025786a7a4f1e5d4fb3a5823', '0x852376c0addc9593036f95dc542c0196a580cc2fa437529c81c0c7a24d3a822a', '0x847626018280ad73a986130377aefcf24c7b4a2348d3130535c6db5a09520be9', '0xb1497f1d2757f624276901f983b7fedee6f310b80cf48283985f7564de2bd1fe', '0xc7bd6884a7eca63a83dca98ed9b799859ad941a684e8b80ab6c8c5c9daf16332', '0xa49af87d5d90ca17788a62d09ef8d9662411e1c1e4a667f314509679f4d575c2', '0x8ca6b21dc8895bbda55b4cd8899a40064dab4fd5a380d6b17806200dbbd6aa4f', '0x07fa9a181880d991ba4a33f419015106b6103d8f1e90bcbfe67f77d65f38a05e', '0x81b5bb1e3fb4030decaab79bb1dd9ab0baf4fbdff5eb2e57eec88b3ecfcbd03c', '0x7012af2e123b92450bba36c935b7131c020825806b25502fb536d585ed8e788e', '0xc126c5bdcd3a0ca5ba78457215448a692cd69247ef8ce4b2fd3a52460648ca52', '0xc69dc8bbd933ee274c7314ee4e281eaf92cbe99c10a8b2af4608ea80b17d8425', '0xd36e3f683d6327b20f8dc1f15d8791f570d0ba2240b32119a5a17096522f08ce', '0x03d9a5968c9f0ea6ee8cc54d9338cd12dadef2d2f3b183e548365c798a34c35d', '0x11f581199e253bf160c3e49daa1564709a8eb473293512c8c77fadcc31263d14', '0x34d72c6285b6981072ff95f0751f4f0e353540c44b45278b1575271fcd648455', '0xd1fc14b400c90a9bc5d9a5441a9a447baec718278a8335e449d32e4891c73d73', '0x6c1ac070884e5b2b9e33e89ae86d34ebc3aef5e2e4c8ef2f71e09dc0a6af013b', '0xb46f7a952e27d5b826dcfa6408dff1ba3b18ab15a9f14deb75746a9a4d44dd26', '0xefb7c8a1574c4163e247faa79cf552703cf4c63ed182f984ad8f78082a08879e', '0xd4bfd459a6d725732917befa261db3c4aec9ce154bc5c1cf4963d8f4c208b323', '0x32bcdedc77f7be46573398867ce15d3f2615fd266a20b84ff15ebc166b02d5e9', '0xb3e9ec090d44d65720d9125da58f8febc7d1afd6711521e42d554ca4bcc63330', '0x26b794bd95584852764ef203b032704e04523d08f5101d475f61fc8b732d626a', '0x649222a101e18dd0d1ec25dd3ff98fbdd8464f46d3ea75900f696f379660b2c5', '0xdcd969ee72d6cefe3c0518d47a870fd4af785c3c3d0c4f397a460f408dc2c650', '0x1cebadcc4297db4942c8887a33c41544210bc7d4e3a7380412e8b680464a8afd', '0xf63b68edb4e5809481897682c7d31a76f3a0d57ccefec3581b2437c502435820', '0x120065ce102ad697f94971ac2b8879f6ae13f434f4b1bfe3a708d7915517506d', '0x7600a6b5f548563162b39e3f30bc9f839778271d052a2ed1aea5b8c3c32bb9e6', '0x81b1769c9f06f483bce47d0eb14189b92e506d8f0de56f5e18905b76686c4297', '0x8e6cc2fc7c5dae27dfcb2b68f242e2d4bca43e5354420526434198644edd9cf9', '0xa604e389b9a1f1f2054407e67bb883e2db22d72ef0209f836f58dcf883037939', '0x5f2bce462ee67fbe9abd7c12966e59bad2c78a0c501f03c667cc617011c0ad62', '0x6bfb91fd2ebfee8f0ce2c9da3207287da9c7431b9f51c43490c04c890a6b1bda', '0x4de573fcdfe905cf891412d46701397209abd2bcb35f6f56b9f244809b8fd81b', '0xb60f6556b77612488c515a04717d746b41401ecc2115981c4ab2a6fbddf60634', '0xca577a71b5b3381d989766659231a79ee6ccb0e875d45327aca177ff7ea85162', '0x4f1c8a2d8deae8d9600cd0e56256669273e79aa67e31ebf147dabba237d9a793', '0x086761edf8c04311885c0baa3703f54a0fda2a0504055951668b8486fec89d7d', '0x0bbf8ed777cda0698be740af2bb4ef34468a050b88208502ea04de323d12be44', '0x8937623f0eac4c1b05b85744191a85531c732b90d46a41822ff8ce1a8fd5931b', '0x041a13fab73cbf0c4bf89af726dd2fda61a058c09589e3c941a9dca556db9309', '0x8f1be5d745fbc2bb8cd822e1676843dec330b80f1d77b5066f185f7aa9d580d5', '0xd3a997ce635aa49da292e3c165a75aa401f0cf9e6e4400582cb9a97bf2b56970', '0x8b838ce46146475378480624396f8268eec6a97fe2b2774384c7a8333e098e2e', '0xd35382e9efc11e18f4ba18cd37659b6b94fcf373d76c2248de8b9e2fd0da5091', '0xc1205bcdd001ff866e69914269b7e7d078c91bbea66c03c05dad693b73d01272', '0x5751f1abb3a06cda7e2ab8d71d18ce78e5e57da319ee1e97979c1262e7c70b52', '0x6848135610a40561b279c4257edb5f3207e69d3bed8f9eba6f30833af0a00892', '0xa6b210ba6779da5125fd313ce645a81ab56fefdbbdbdf2371acead3e16000a2c', '0x3308af20ff91ef4fa04fece2ec38124940e8c741c5cd7dd7dce5a396ea516c0f', '0xab65c25103412ca5b85e8024eb9447dd733194f432fccf2657ca2182d9451a39', '0x175032e2fed42b327a9c027c4a7f28bd408bab6fd7458a8bf553cafbbbf3bbb3', '0x06a26ce15dbfad62e9786ce16b75f1f0ff273cbb8856c8bc129edc4f85c7cdf9', '0xb77e3c83f3838722f81a26c370990b75ccc3e6b4a49c6d8ec2b347505c744d62', '0xcca3a928a3c9af9be00ba27c271b821ad75bbcd29857b7ab66d7c060fe7963df', '0xa0004981c3c9b776a525698bbde29e08016c036f58b9ca93934746e2f2c246d4', '0x2d7428b015c814e2505cae2592a94a1e7e321b31b3260388354affdd7b600d34', '0xba4825551a2d16b7b3a2d00c53806bc8017eb1c313ad214e949b8ff68fb2c9b1', '0x962ce480b561057fecce20fb2d13f3357a1ddd36542a1af12dd1f66acf4d27ee', '0x0a1500c6a2e5e25946c2dbde5480853ad8040b827d153d085e43be99ae4bfa96', '0x8b100deaabc5d07d4357208addd87e73a9b64cf0f3637cd93daea42d67b4a538', '0x13328a136f2cf4fee57dde55dc96f50b8ee796685f102c2c7ec53df1966f1872', '0x0252369b12703f6d2119873558e277e3c3ca69694fbdb26a3f87a6bfaf231ea6', '0x74315af8f61aeb57dfdd30afe4a4c4f156b40187bb77e32cc80cf2bd6d08ed96', '0xac4059572dbb8faffca09c642d78ae5cb46edcf0a43adbbc774e344ba04ba2e0', '0x6f00ff545eed31d6c251aeac588902440db0e246b929570d16a40e159ce84f1c', '0x90cbe7dd08b9adaa40aae578d065919007aff7973450d47b68272d7b1dcaad82', '0x13308efd5b73e8a93cad7b120407fc538de2b453c8de7660cc088e2db098106b', '0x5176a879e4107dd7b49151859e627234f181e1614e1fdf7cd0daca86ac81cc68', '0xc201d44e1851e80a06f56a8f07e912df071f59373bd6b119f5af1aef410906a2', '0xc7729c62c370550b083e8b96574b3f3bff55eae86ca750a8e2bdb89a7d95745e', '0x18784c32c63a22a3d70fefaa95e5f27be836b583ed63706d0d50d49c1056a202', '0x0dabaa36a2b6929fb7ef76a615ebef098d25e41f4f95f7487a7c59375e6901a4', '0xcba5934899a45f41a6a3d5ae6de89b63b46e625a0a98582aaed6b428e59cc660', '0xbdd39e2b81ad0219e5ef68d542da9fb2ddf6dd131f4cb0672de58a9658eb47bb', '0xd30a7ffcdfd35b891cb6b942b0de33a7611626ab7724d13a94624ec90e0cc4cd', '0xa41555aed96ae45cff709a9867358a955bd4983af62ad2ba146468c235673f68', '0x127886ccded1f026342d4170878565b5d951d41bab5470f70d6582f0a1edf352', '0x1ca6635fb05eeceb98d232a4ee14025a6f6a5e45331ea88c19044cd73b41eea7', '0x2c75a821909133bf0f1b096fc71393e0f5e214cd332bbd61f9624f5b4f2e785f', '0x74b0e594f510640c339395eed734000e1bb0ef5848ce62880528243bfc9b7105', '0xbe173918ccc6cdabf75bcd4fcf982a859221b9530fc8d5189b66b67310a65955', '0x65f49def2b5a7bf68d5d7e2c82d3b0b2ea80e624ee2613ddca28634a8b29f391', '0x1805510b6decc7bcfb599f48e279337c06bde43682a9a421f0cf8754508ad325', '0x3df6378744482581e6ac9527f4fbf24c1349e8ac9d3b6d81e03e3f15d3c75dc1', '0x79770188ae9f1fdad6b3f5423d8e96f752ff2100b0ad593b80174e0f1ebef8c7', '0x336052ce2c1ba30b420bbbc3509c4c1640111fe2f67967ed27c7e208933fb402', '0xf82a54d0f04fc53328592fdedc7f013884a6d1a0b34d1c69f70eb1e4286c9442', '0x6ab19e1c7c4b9bf04dedd2619486819d469ba522c16f33d91caaef2e987a4e43', '0x6a2c87212a4b0257767679c870c2c69d3a89c4191dbadb37914ffd075ad3ba9e', '0x6d5adda120ecd8e12f7c7c5d919117a3c02e3ecd5a3f75415235853d2d1e9d48', '0xe23987f1f3a3dd43bd07435504293c10c4cb8d10555f19d262ecf2abffeae22d', '0xcbbd317f993993fa8317a39fbf36406c0978d73bea382186d69e4089f7e81a9e', '0x45f59fc9d98a5b13e074da4a63f5a7c2ba3c14e2289cc2ac148e4928d2e6aa97', '0x41694827ee0d043171033d7329eb990c566a47ae91e35d69ff9708f5c888ba4c', '0xf695c2f1db616096e87d5cfbb5955afcdc5d8f5fe61855f059b6ed124558ae74', '0xd1b51db3278f8e11425b4d0251a69d03917d9420987076d81adfb60a1cbe5b23', '0xa9e812db7924bd5a4d60fb522e10448161134b8ed1c172ee14e5a09a2cb2e8bd', '0x2b5fe790de59b4a155a84844e45523659d3ffda895711922643a16c1dd3f035c', '0xa78d2f2e969f9f046de45c5b3f7c606126f6bf5ed052ed9961bf3553e3434228', '0x334ad62dff29108a03d772411a9ed2ad220e1c1d8646929ed4fec51182f06b8a', '0xe7cab49886979440f4ecbdb9384fc78227f28036223741550379568dd92696ca', '0x1d343a934b24e39b80d70b8e04e78aecc2447bdbbfab3430585969bfeabe7b7a', '0x1b6d00e4eb60b06993be2ecfd71124a1276a91464cd44a900538f7177a91c2aa', '0x39cbeb0872e8da36fcec641760a879d97fa7bbaecc26f117b0cd96ef7b5df75a', '0x8eb0b6e4cb6faeb1ac334a4770869275bca2cb396e6aedbc14514b175a09ff4e', '0x1f9ef669710127bdedf4a6d02c6140670e5f12baf146eddfcd0b82ae9f622449', '0x25a2a01ff5209dcc20e24744a3e5ded66b37180417eecba6363b02d3b0ee77be', '0xbfb1c7b574ecdaca7d280205cc60accd3c179d44fc26b9a05ccae9c206e31b3f', '0x4ea962cfc7d1a1c2c42217311238b66117cf059c6ddb0e9b7adf5fc5e50d324b', '0xd5ef1e87451ed375b24478723d6beef8bdf24525e88d76a6daa484c88722e6fe', '0x85ffa90c101b0d105277cf2c510cc6f8553d28d9a06f4354a455565251943908', '0x3d1fd11c941ff2415f065278b1eba3139657e13998b8c68b89b1b9cbb53a7fce', '0x936f822f137f8f9b8a22037073975901f3f58a89ff7e75832643d76c5100e682', '0x3358c4f59bf3461e97455b9ccb08864d73ed27e5ee35139f06275b03d1824020', '0xc7762f56223a0dc201fe6ad7d55c42ea47edb370416f5457dcb7e7aea3b9fe7d', '0x1fb2d1a9d456c3ff5cecc66b1edefa7d5feaad6328d037426e5d3bf8c0a31660', '0x01b9dc6bb3a332c74d4873bdc44aa0f373966055761eef7818d4664f91a028e5', '0xbef83b9725d79a0a69572a8f5b7c6008d55bfb3f88a84bae78f0f42734cae178', '0xa89257210fefc3dc93b4444db0cddff0c54f3b9210c6c9576b9fa434500f4cea', '0x8e4d90bece437453a4ab10df1333fb0df254726a8caaf455b4c4b7d62728b973', '0x54286f9fdefa77e22b1c62107f9ab7bec17541a9f266bb4283aec02b03c42e6b', '0xc80224b49521a80fd203f7bea318b946e17308df293b83a1a6eb04f00dfbeb72', '0x9c376a0f41786afa3be014616028a8f7d022146fa43a1d400133e052b90af95b', '0x76f6b52993eff2dcf33447f429cb614dde89f9fd5b01ac1db16749007024d3ab', '0xc6d189cd39279c909070323ad54d8218ce53e7b885264924f43e86d1644b01fd', '0xf8d8ab23d0298d9ca5623105e668ced5b95c40ab2a057cea936ebbcbae3d9a4b', '0x9133eb1f2b4360aa494c1b7120d683ff13c6484b6255e5a6486a9b174c4f08c2', '0xbd79d24b35aa8be8a5769a95286e6983e98221c3725ecc1f41c0af52fa29f174', '0x952b6d1cb31b93ef531e18391336d59765557dd26ae622aa496c66d62f9a4c20', '0xc9f2a5e4add5d84df42a402be05cca1b197ec4c3874d0898243d442fb61feb8e', '0xe76269a8637840bdca7ffa0fbcd3c0ffea440b1f42288cbbfe53deaecd2d8361', '0xc966242b11752668431618474c0238be28fa60bbd1694044da4ab606fa1c78b0', '0x99b9bbcaac8ba4c120f7b524af48a352d21865d878b7ec48af8f07735e651bc0', '0x3e3e83dfc3f0669c721ed7513c9be976142fe555aa3239532a6d420c5b851809', '0xac155db6402741d7fbfa7695d664327c3b9a71d641e9d2b2ff1d0a1fedd5826e', '0x88a75ab48147942b04006b4c358dff63186538c2ba5d81e253acd94084d9a28b', '0x321ba62b9a6ff37bcb6af89bb8fab9d8b418fdd555f6a1f3f8bea425010d234c', '0x3aff8864828885a41e4d088a86d02f41478cb86b538a432a03b8bcde8ee6249d', '0xc00157f80a3a37bab083c2f3a1a1be39d32e7c63a667ada61ab694672018c3ea', '0xe0f7c063cf09b395ba99d4ae53178c4b505c0ebecf67b1588246d9b85c92aa78', '0x593857fb953a4a5a0a509dbf37a7966a4389a8b28bd84011e0a05cb58ba74d1f', '0xbd77c0d3c2c7144c597ff869f8a62b2dc17b8c9be38674437a89784ef4c69941', '0x4eff2a04ed0dc824eea2a78e726f1d317d12bcb5529c7ef9112c4ccf88bb77bd', '0x7c8b7fdb702caa3046d2bcab3f37268e3cab219289a107e4fa775271a3b870ac', '0x5f968f9d67001d76ae5cfc066807804b409532c37c17907c44c680b14dd5fa0b', '0x3847f71b300cf9f0ef367712637e33014e8f06667dacf5d2ced104d478b7665a', '0xd6a35aa0cafd628399bdff90249484b801246bc8074cc988e0a043908626561d', '0x805dbf436e56552d408c13288a03f90b0105ba6f2eca5104650fe5755e8a2bcf', '0xe96b5e13742ba15c37e685b08cd1f5d38388decaf40f7a9d65f4d18332543bb2', '0xa1002b296b6893972fea60dfdd6fe5e9b16df21d23fdcb5a111a8d79e99b9662', '0xe657a5b55604773a3e0c5d1962dc9be916f4f683402966a5891060b9a7eb3c1d', '0xd90de888aec6d327d2106a3d49166312eeaef2395ad3b43f74fd037785e2affc', '0x2b90c3dec2856f29aa1ee5942cd23f0c848e77e9f2b38ba95ec5df58d273c6ae', '0x6033b18e211af36bab515f0e76dd53760976ffd160282d404b4f85f23516e868', '0x948c5e3db18e9ad072dbae68fea4ad18528a4700d8d4da064b6977fc55adc3c1', '0x0936f8e2933cac2fbc145bd83b721f38f1890b290ed8f0521f136fa39f360995', '0xb7f048f7d7583a95aac6c9a4e588ba56f8f7fc45b924a9042384e7aa694069de', '0x3175f918e2448cfb5614cb9671b616da39f3e17752c2e3566c355d1d694b9adb', '0x4ca170de4e3e0d7f97ec5139f3ddda58d697b1817c24f3be3c3acb2b377381dd', '0xa13a1a0721fd818718e3af50980acce5cd036a31aef2283ad1df9534b2df856c', '0x530d6e6468cd37c2d078603de32d8365d502537cba6261576f3e9b8de6cf7d34', '0x9e2f362980fe361af321581f7ea51034463b8c22333bf3ebcf983df7fbafab54', '0x10943894de25b6fc0763383bb0b9ce291c5603ca5096538fe76b9045836bee12', '0xb85e6739b1ce558ac01ebcec8850bc9e065b688be94b7cf1a84572c84714b5a5', '0xd372897b5bb54f9482f2add548c9c281bf4ef54c1ef62c30c2a39070ab4ba189', '0x2e55bdb9493ea8de04c7efe09c383b701f25f7367e904e24357fd47505a56824', '0x1910a9fcf71c5c3c1de940c746c0cfff2c4e5ca7209f290d0300aa996020635d', '0x75fbfa3a63513e2b0fe8b37d1e5a25b9d5107945391a23febf3b0d84c269d820', '0x2bde8529510d0e3a83b005e838939f73962774c343dd463cdf262935734fa038', '0x3328688d0e1624a802f03c07f2efee38396b7b465dfe565e4f3e1817e6856ffe', '0xe1758b26893b54c5feae0c40c9d8cfe7723760049af7ef835e5c6be90252fe56', '0x1296fd4d0397fc86bfb0d69627630a9ecd8710ed958fd8b2fb39020aa865aa5f', '0xc49d4eb54a90fff6fabd4f806803b0f73f7dda62951f3ba4fc8173d91188155e', '0xb87bf76e01694f22f6844edc5ddcf3904e00558c2f6096e8d40fac1e42884e1d', '0x37af97bfc2adce2fca5dd4c40c1bf502d2759249455de079d63c2d875c00258c', '0x014461451d8e73f1ddd663f74956cc7d5465d0eadf9dc29c07f1add44c1e9fd7', '0x1b3605706279993320c5bb61e1711ca1323be177f3dc71a0a18922216236af29', '0x1394143e4a44012a85bf394ea31be8ba18f6d2dc79af21f9a50efd17b4283b81', '0x49b5413e86eaff0fc20dfe2d8fd36dceeb312e6986185e576e81fc63863775b5', '0xc54aa9c5847f2928884a42017c491b0de85b4e8a577acd43e80ed80e9ca5a0a2', '0xb59bbcf026dd2d27cbad38d807c48ec7ef058a49c724283ffb0bbdacae3e36e4', '0x57696f06c3d1d5ed21dd48ce2e014de78501f108d41d1330fa0d9ebc1c4aa0ba', '0x46a3fd6b3a5df5d49b7dc9e51e9e761301ae184a2eb092fc935aaa8233398620', '0x1be4e9fe9204e54e6a64e5317a22d175b3363a05d97a11c4dc27b5dcbf8aabbe', '0x21655fbee0c94aa79c8fc814d1469c1758737fe174fc45642f79f14d50c0c957', '0xe9ab1dd12cb016de53834f2e68485bd6b662d8aed5210c07e95daa9c0a260747', '0x97211712154722dfbdecf9c638be84cd10fa4bbb6c1d2979b207fb64c03727a5', '0x0937556f689c732ff5aee5df98a894d487054cbdd04830bb064c55ac6170146d', '0x3d27464e46939e58641a9eb70270cc1ae82da17df37792e61ecb9225f8ae7d22', '0x33d6bb4b7922d32da001477bb6f8753e8551d4983d39994659c8f0429663dce6', '0xd55bf3f3aa9ada13fee53e2416efab7c9c94aa22c831c6d353481edc21eb20a8', '0x25aa3efdb10401d88e87bc6b466b881ab3b3121a93a18e23a37ad7b3b75ef512', '0xde2f5fedf4249d20938c0fb93d674cccaa180cf44cc6ed64e628f3581cb3756f', '0x3439feeae91df8d3e369c511e75602b2cfbd281cf26931a1a1ea0aee7517dee9', '0x78558b5858430ccb326ef51917bd1bf29db27e8382f264294e51341d44fed403', '0xd992f7951f8536cc2af7e29cc75702f878a1fad3625a404c228bf0c83f6428f7', '0xa068032ce7c6089432fd7d2728d50436cd3b5ab859012771baa8e3c4d105c9b3', '0x6158b250bba85ee4bde8134366ce378670927aa31e57777fcff3daf5b9e66f9f', '0x0a8c86f22ea9c711d3de3cd0a9cad076e0b62473eedc8d746f47984b17721ec7', '0x8a5c7f41894e9c92b848e347cc714db9169079cf47e718894f986f5202a3cbe0', '0x60ce87664288f2deb81001ee887b01ec240220fbb89d3db0640911dc945ff3b1', '0xa6bcbeece0d4032fccd577b1f2d800f5c8717ce0aa2b56f4be1f836ffa550718', '0x9cc063ca370e87a6d00da36f155a4d0c998856f8a7c9e3bce667dd4f07b175b8', '0x4e649c2c6d5dfcc8f862a4405e0f93f39a1c5207a42a03e62917268b2783ea93', '0xc35e4abf556c5551b45ed65bda4138c2f890577525c2fac4a59482736bbfec52', '0xd9cb96e02c60a938f08e5d004b7b76afccb168b14bc8d4806f2e84550c315fb3', '0x26ba77278954f9ff989554bde7b69d0de5769406225dcb7d0a5697ce14dd2620', '0xd07f74e136b201d8c436c0954418d281ca7969702e4697ae12c75e5040c3fcf0', '0x31984bc1f0a504a00bf76922d095714b5538341221692c56a6f500ad00da8e7b', '0xf80fa580bd54065bfa229d1c74107d91efd663633d293f87be470f4c68c40f47', '0xc8eb4b40d48f5e107edbda75d00c3c73c845afacf1f30eb5696ab9b1b2c57b88', '0x23a4a69a7d31e86b0d72904d2740540cbc3ee9362bc3c80be7b434276a496334', '0x89d2af329ce52bac6aed608cda5a44a6dc8df222b76e918f74a59a960632dbe5', '0xceaf561baf16d13d0892c01e4981dd134024f2b96991fc1a4772ab95e6500a1c', '0x9eefa3fc0b0eba5bda9eca0d3d403cf9740778e75e2f27bb074348f7e6598fd9', '0xf5131b7dafc63856805fb32bdc9d5689c27bc74b5ef43da219906b1682920ae3', '0x10b74c44f0d31319a7d204e8953bff120ad69964d744c9be20b8ccae257fef94', '0x1a544016162516988c2fdf242afa8486e3422662c03fca4b68041b467c9aa73f', '0x9309fe6408bb60e5ae9ded0088c00bd03f8e563960f792fd2ad2f627280d97b1', '0x1501da740be40ee79e3faaed49d3e050838774032d3458893b0f2187279ea78b', '0xee6507f0742df40455a38782c4c93171022a937fe55ac0dec27dff847a758e6d', '0xe5b5ef337d9a03379d34f60fd8ff863fb721cca8860cdbb13635b83ad9a03772', '0xe0c8eb47244549a3d36a57a13f9e4043d4b899df8d13c58c0a1d230a834b30ff', '0xbee635edef32bc1a57dd58d33c6e2d0e52de7711e97ef4f07aff4c5461f20c43', '0xb29cae478635e3b3c848bbabfbf049c803ecc9d8885a24dc0839dc88f01b2ae1', '0xfb3ad929ac6d89e2f84c15bbf951f6737155943e4d720650e9569b2b98784059', '0x9435966f9708e03d8b4a11ed92b5dfc630023c0ee352651b5fd22fc62eaa9b03', '0x09e08c0200176038dda1f8e3138a9578856550d735e0d7dff3ed57dfdf6e0f6a', '0xbd7a62437e5fa66429b8956551f2f789bfca48e19701c927815392139f02f331', '0x334d7fad11100fbe7f063b50a2889e8f6c20dbd593ad94563e4833507e56fb79', '0x26a64d428f84ba4edf5f203dca3930229a0e4e9e81792f6cef31f8e4b8330a8d', '0x4036f684ac78e2410bb1220c65a62f06394ef7749faeaa4952589943b82417cf', '0x6b87226e94a788c83c936e2aef3550784579152c57cc4603b04e6643658c2b66', '0xecf31bdc247c46306e5d01a176b667806a9fa9a0fca2dab10a14c5ad6d407154', '0x2c152d63eafb3139b80739a96f309b76bb4ed87f399e297a9810c16c3ccff179', '0xb952069977699b8ab1dc6d5ab77b0bf596d3f13c6deea612142bdd2ecb2ff681', '0x8373ebfaef863ad84a490cda87fb7ca3d23954e68d31e42cfcd23f78e612dfd6', '0xbf24d6f8e550720f44c0064b48a41e352b35dbfaa66e320b91ad831cafb30618', '0xf27cb9a2b30288d299d536c00468a2177fb552cce88d22ffefd466ec56fba1cd', '0xd0c7603ae6593e35a6db644df3515786384075a1729e0e827398ae309e54db99', '0x735ad8e6397fae5e28f2d11fd2b6bca9aec47bcb06dfaa7ed8a674a1e5167279', '0x0d84fb547a7e7645654e889abc87920cff5792d863633f926580d01a4a8df0fb', '0x5d7c1c9128cc81b0ba8927a93dfd1689cb92748b98e95b48101adf297de6d899', '0x74932ee260406f6383b8bdf4931af2338c266a0070f2d08e90012c5b45e64e12', '0x3b94a3afd1922de749b1126bd078c0a29bfe50a2a32f7f326d6f04e8e2032888', '0x7fdb4bc2053cb48bd307934b07bcc8a04274fde6a3477455894ab9190e618226', '0x6bfd8a14b5eb3eb6ae10b49f55c41499d01111dd8b413c420424e7513e688b08', '0x32c91cdeb7794ad0eea2955dc4f079fb32dab979ae2203eb509f3068e0cd99eb', '0xbb410c1a0e5cf69defbb645753eb9d51877c25b86ae32da4db2269c368dddf6c', '0xfac0b74fb476256121f56a52850f1bbddaef0976ec4478f811f3f5850c536ee4', '0x8cdbc3bd13cf364e41a26c673ee0fd8f1258147908c5235da8909f43874e1744', '0x798acb0ec31ddda19807e3bbd10431adfa78ecd3497b04806653017cf7be2622', '0x3c1857080b59dcf6469e004ce07992a9a4ee634742414e426fcc9ab7fc1e51c0', '0x725255e8e02501212c639a80af5207750324fc22eaad5191f46584b03670558a', '0xf7d00f4105d97e663c0239223e16494438b6b6aacb6a7fcfc5dc2948550c6393', '0x9fb299050c83c6642a96857c1ceed8f6c9c71093d925983c6283b5f5cf5721c7')
+Saving the game
+</code></pre></div></div>
+
+<p>All functionality of the <code class="language-plaintext highlighter-rouge">ether_real_estate</code> module works through the <code class="language-plaintext highlighter-rouge">Game</code> object.</p>
+
+<p>When a <code class="language-plaintext highlighter-rouge">Game</code> object is created, there are five directories created under the <code class="language-plaintext highlighter-rouge">game_path</code> directory that is specified during instantiation.  A brief summary of each subdiretory is listed here.  They will be explored one-by-one deeper into the tutorial.</p>
+
+<p><strong>1. <code class="language-plaintext highlighter-rouge">building_bids</code></strong>: This directory will receive human/AI player bids on unowned buildings.  These buildings will have a portfolio of lease agreements as well as potentially some vacant units, and at each time period players can bid on unowned buildings.  The <code class="language-plaintext highlighter-rouge">Game</code> object will select the winning bid.</p>
+
+<p><strong>2. <code class="language-plaintext highlighter-rouge">firm_bids</code></strong>: This directory will receive human/AI player bids on firms not currently under a lease contract.  At each time period, players can bid (suggest lease contracts) to firms not under contract.  The <code class="language-plaintext highlighter-rouge">Game</code> object will select the winning bid, and the winning player assigns the firm to one of the player’s buildings.</p>
+
+<p><strong>3. <code class="language-plaintext highlighter-rouge">stats</code></strong>: Summary data for the state of the economy is output each period to this directory.  For each building, a list of which firms currently occupy that building are given.  Firm industry membership and lease agreement (if available) are also provided.</p>
+
+<p><strong>4. <code class="language-plaintext highlighter-rouge">cash_flows</code></strong>:  Historical cash flow data for each firm is recorded here.  Firm cash flows are given by:
+\(y_{i,t} = \sum_{k=1}^6 \beta_{i,k} y_{i,t-K} + \epsilon_{i,t} + \nu_{j,t}\)
+where $\epsilon_{i,t}$ and $\nu_{j,t}$ are firm and industry-specific shocks.  Players should use these historical cash flows to determine rental payments and default risk.</p>
+
+<p><strong>5. <code class="language-plaintext highlighter-rouge">blocks</code></strong>:  Each mined block of the Ethereum blockchain on which transactions occur is saved here for easy access by players.  Because bidding for buildings and firms is a competitive process, players would do well to review the blockchain and determine the financial strength of their rivals.</p>
+
+<h2 id="bidding">Bidding</h2>
+
+<p>At the start of the game (period <code class="language-plaintext highlighter-rouge">0</code>), no buildings are owned.  Players must bid for them.  Building data is stored in the <code class="language-plaintext highlighter-rouge">stats</code> directory.  A snapshot of this data is shown below.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="n">pd</span>
+
+<span class="n">building_stats</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">path</span> <span class="o">+</span> <span class="s">'/stats/0/buildings.csv'</span><span class="p">)</span>
+<span class="n">building_stats</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>building</th>
+      <th>size</th>
+      <th>firm</th>
+      <th>industry</th>
+      <th>firm_size</th>
+      <th>rent</th>
+      <th>maturity</th>
+      <th>cash_holdings</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>B0</td>
+      <td>20</td>
+      <td>F0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>4</td>
+      <td>2</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>B0</td>
+      <td>20</td>
+      <td>F1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>3</td>
+      <td>4.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>B0</td>
+      <td>20</td>
+      <td>F2</td>
+      <td>2</td>
+      <td>1</td>
+      <td>3</td>
+      <td>2</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>B0</td>
+      <td>20</td>
+      <td>F3</td>
+      <td>3</td>
+      <td>1</td>
+      <td>3</td>
+      <td>2</td>
+      <td>3.0</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>B0</td>
+      <td>20</td>
+      <td>F4</td>
+      <td>4</td>
+      <td>1</td>
+      <td>5</td>
+      <td>2</td>
+      <td>5.0</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>All buildings are given a size of <code class="language-plaintext highlighter-rouge">20</code>.  Firm sizes start at <code class="language-plaintext highlighter-rouge">1</code> and grow with cash holdings.  Firm size increments to 2 when cash holdings exceed <code class="language-plaintext highlighter-rouge">5</code> at the <em>end</em> of the period.  Firm size increments at each multiple of <code class="language-plaintext highlighter-rouge">5</code> thereafter.</p>
+
+<p>It is possible for the size of all firms in a building to exceed building occupancy.  In this case, the <code class="language-plaintext highlighter-rouge">Game</code> object randomly selects from the set of firms that increased in size in that period and removes them from the building until occupancy is within limits.  This can create strategic value in reserving some spare occupancy in a building.</p>
+
+<p>Human players create bids for buildings and submit these bids as a .csv file to the <code class="language-plaintext highlighter-rouge">building_bids</code> directory.  Once all human players have submitted bids, the game organizer (e.g. instructor) can instruct the <code class="language-plaintext highlighter-rouge">Game</code> object to create AI bids and then select winning bids for each building.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">g</span><span class="p">.</span><span class="n">get_building_bids</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	 Property acquisition completed:
+	 player: p0 eth: 173.94921335921276 properties: ['B1', 'B5']
+	 player: p1 eth: 113.42241133005547 properties: ['B2', 'B7']
+	 player: p2 eth: 181.50254206859992 properties: ['B11', 'B12']
+	 player: p3 eth: 7.15521042331484 properties: ['B4', 'B8', 'B13']
+	 player: p4 eth: 148.2536826289437 properties: ['B3', 'B14']
+</code></pre></div></div>
+
+<p>Here, the <code class="language-plaintext highlighter-rouge">5</code> AI players have bid on buildings and the winning bids were selected.  Note that winning more or fewer buildings at period 0 does not necessarily set the player up for failure.  Over many simulations of real estate games, I’ve found players with one building to win the game as well as players with three buildings to win the game.  Success depends on building management (contract selection) over the following periods.</p>
+
+<p>A snapshot of bids for player <code class="language-plaintext highlighter-rouge">p0</code> is shown below.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p0_building_bids</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">path</span> <span class="o">+</span> <span class="s">'/building_bids/0/p0.csv'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+
+<span class="n">p0_building_bids</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>0</th>
+      <th>1</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>B1</td>
+      <td>183.711056</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>B5</td>
+      <td>173.214010</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>B14</td>
+      <td>168.768736</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Once buildings are awarded, players now have a knowledge of the amount of spare occupancy in their buildings.  For players with spare space, bids for firms not currently under contract with a building can be bid for.</p>
+
+<p>Human players submit their bids to the <code class="language-plaintext highlighter-rouge">firm_bids</code> directory.  After all humans have submitted bids, the game organizer can instruct that <code class="language-plaintext highlighter-rouge">Game</code> object to create AI bids and then select winning bids for each firm.</p>
+
+<p>Bids on firms are a rent-duration pair that specify the terms of the contract.  The <code class="language-plaintext highlighter-rouge">Game</code> object will automatically determine the best contract to select a winning bid (based on the expected contract cost).  Because some contracts will propose shorter durations than others, the <code class="language-plaintext highlighter-rouge">Game</code> object will make a naive guess at contract renewal rates in order to make short and long-term contracts more comparable.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">g</span><span class="p">.</span><span class="n">get_firm_bids</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>A snapshot of firm bids from player <code class="language-plaintext highlighter-rouge">p0</code> is shown below.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">p0_firm_bids</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">path</span> <span class="o">+</span> <span class="s">'/firm_bids/0/p0.csv'</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="bp">None</span><span class="p">)</span>
+<span class="n">p0_firm_bids</span><span class="p">.</span><span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s">'firm name'</span><span class="p">,</span> <span class="s">'rent'</span><span class="p">,</span> <span class="s">'duration'</span><span class="p">]</span>
+
+<span class="n">p0_firm_bids</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>firm name</th>
+      <th>rent</th>
+      <th>duration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>F270</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>F271</td>
+      <td>4</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>F272</td>
+      <td>5</td>
+      <td>3</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>F273</td>
+      <td>4</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>F274</td>
+      <td>5</td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>Players can bid on as many firms as they like (from the set of firms not under contract).  The <code class="language-plaintext highlighter-rouge">Game</code> object randomly selects firms from the bid list and awards winners.  As soon as a player has completely filled their building occupancy, additional firm bids from that player are discarded.</p>
+
+<h2 id="saving-the-game">Saving the Game</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">Game</code> object can be saved so that it can be resumed at a later date.  For example, if the game organizer is running the game on Google Colab then Python will time out after so many hours.  Before the kernel times out, the organizer should save the game, which pickles a number of features about the game so that it can be resumed later.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">g</span><span class="p">.</span><span class="n">save_game</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Saving the game
+</code></pre></div></div>
+
+<p>A saved game can be resumed by specifying the path to the saved game.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">g</span> <span class="o">=</span> <span class="n">ether_real_estate</span><span class="p">.</span><span class="n">load_game</span><span class="p">(</span><span class="n">game_path</span><span class="o">=</span><span class="s">'/content/drive/My Drive/Ether Real Estate test'</span><span class="p">)</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Loading the game at path /content/drive/My Drive/Ether Real Estate test
+</code></pre></div></div>
+
+<h2 id="incrementing-the-game">Incrementing the Game</h2>
+
+<p>After building and firm bids have been awarded, the remainder of the period runs on autopilot.  The following sequence of events occurs:</p>
+<ol>
+  <li>Firms earn cash flows</li>
+  <li>Firms pay rent</li>
+  <li>Players pay taxes (both on income from rent and on property tax for buildings)</li>
+  <li>Defaulted firms are evicted from buildings</li>
+  <li>Any unowned buildings are randomly allocated more firms</li>
+  <li>A new set of subdirectories are created for the next period (e.g. <code class="language-plaintext highlighter-rouge">building_bids/1</code> is added if the game is incrementing to period <code class="language-plaintext highlighter-rouge">1</code>)</li>
+  <li>All transactions on the blockchain for the ending period are written to the <code class="language-plaintext highlighter-rouge">blocks</code> directory for easy inspection</li>
+</ol>
+
+<p>Because the <code class="language-plaintext highlighter-rouge">Game</code> was instantiated with the <code class="language-plaintext highlighter-rouge">verbose</code> option set to <code class="language-plaintext highlighter-rouge">True</code>, the following command will print out lots of details about the incrementation of the game.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">g</span><span class="p">.</span><span class="n">increment_game</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	 Collected rent:
+	 player: p0 eth: 290.94921335921276
+	 player: p1 eth: 250.42241133005547
+	 player: p2 eth: 301.50254206859995
+	 player: p3 eth: 180.15521042331483
+	 player: p4 eth: 292.2536826289437
+	 End of stage:
+	 player: p0 eth: 271.330389829801
+		 B1 ['F18', 'F19', 'F20', 'F21', 'F22', 'F23', 'F24', 'F25', 'F26', 'F27', 'F28', 'F29', 'F30', 'F31', 'F32', 'F33', 'F34', 'F35', 'F272', 'F274'] 20 20
+		 B5 ['F90', 'F91', 'F92', 'F93', 'F94', 'F95', 'F96', 'F97', 'F98', 'F99', 'F100', 'F101', 'F102', 'F103', 'F104', 'F105', 'F106', 'F107', 'F277', 'F278'] 20 20
+	 player: p1 eth: 228.43339172221232
+		 B2 ['F36', 'F37', 'F38', 'F39', 'F40', 'F41', 'F42', 'F43', 'F44', 'F45', 'F46', 'F47', 'F48', 'F49', 'F50', 'F51', 'F52', 'F53', 'F276', 'F280'] 20 20
+		 B7 ['F126', 'F127', 'F128', 'F129', 'F130', 'F131', 'F132', 'F133', 'F134', 'F135', 'F136', 'F137', 'F138', 'F139', 'F140', 'F141', 'F142', 'F143', 'F270', 'F275'] 20 20
+	 player: p2 eth: 283.14803226467836
+		 B11 ['F198', 'F199', 'F200', 'F201', 'F202', 'F203', 'F204', 'F205', 'F206', 'F207', 'F208', 'F209', 'F210', 'F211', 'F212', 'F213', 'F214', 'F215', 'F289', 'F290'] 20 20
+		 B12 ['F216', 'F217', 'F218', 'F219', 'F220', 'F221', 'F222', 'F223', 'F224', 'F225', 'F226', 'F227', 'F228', 'F229', 'F230', 'F231', 'F232', 'F233', 'F282', 'F286'] 20 20
+	 player: p3 eth: 150.27599473704032
+		 B4 ['F72', 'F73', 'F74', 'F75', 'F76', 'F77', 'F78', 'F79', 'F80', 'F81', 'F82', 'F83', 'F84', 'F85', 'F86', 'F87', 'F88', 'F89', 'F271', 'F284'] 20 20
+		 B8 ['F144', 'F145', 'F146', 'F147', 'F148', 'F149', 'F150', 'F151', 'F152', 'F153', 'F154', 'F155', 'F156', 'F157', 'F158', 'F159', 'F160', 'F161', 'F273', 'F281'] 20 20
+		 B13 ['F234', 'F235', 'F236', 'F237', 'F238', 'F239', 'F240', 'F241', 'F242', 'F243', 'F244', 'F245', 'F246', 'F247', 'F248', 'F249', 'F250', 'F251', 'F285', 'F287'] 20 20
+	 player: p4 eth: 273.0050551779633
+		 B3 ['F54', 'F55', 'F56', 'F57', 'F58', 'F59', 'F60', 'F61', 'F62', 'F63', 'F64', 'F65', 'F66', 'F67', 'F68', 'F69', 'F70', 'F71', 'F279', 'F283'] 20 20
+		 B14 ['F252', 'F253', 'F254', 'F255', 'F256', 'F257', 'F258', 'F259', 'F260', 'F261', 'F262', 'F263', 'F264', 'F265', 'F266', 'F267', 'F268', 'F269', 'F288', 'F291'] 20 20
+filling building B0
+filling building B6
+filling building B9
+filling building B10
+</code></pre></div></div>
+
+<p>A snapshot of the blockchain data is shown below.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">block_0</span> <span class="o">=</span> <span class="n">pd</span><span class="p">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">g</span><span class="p">.</span><span class="n">path</span> <span class="o">+</span> <span class="s">'/blocks/0/blocks.csv'</span><span class="p">)</span>
+
+<span class="n">block_0</span><span class="p">.</span><span class="n">head</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>block</th>
+      <th>from</th>
+      <th>to</th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>378</td>
+      <td>0xd5724FA51BE16771DDF6Bf7E7091f07A59124Ab8</td>
+      <td>0x59e4D3468Cd72B28e78db5e85642Aeb33FEbf35f</td>
+      <td>2.276667</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>379</td>
+      <td>0xd5724FA51BE16771DDF6Bf7E7091f07A59124Ab8</td>
+      <td>0x524b6773073Be0705EF1E4b0A5DD0824a1BB4a90</td>
+      <td>1.958823</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>380</td>
+      <td>0xd5724FA51BE16771DDF6Bf7E7091f07A59124Ab8</td>
+      <td>0x8f113fe7558D63576EC715118Fb72e01192EE63D</td>
+      <td>2.401248</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>381</td>
+      <td>0xd5724FA51BE16771DDF6Bf7E7091f07A59124Ab8</td>
+      <td>0x7DeC5D312933e904EBc347C4716Dfe0506047747</td>
+      <td>0.395602</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>382</td>
+      <td>0xd5724FA51BE16771DDF6Bf7E7091f07A59124Ab8</td>
+      <td>0xB640d84E00D052A51f06C5249e2F561DBdC53794</td>
+      <td>25.862682</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>The first set of transaction are all from the same account.  This is the “banker” account.  Firm cash flows arrive from the banker.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">block_0</span><span class="p">.</span><span class="n">tail</span><span class="p">()</span>
+</code></pre></div></div>
+
+<div>
+<style scoped="">
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>block</th>
+      <th>from</th>
+      <th>to</th>
+      <th>value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>535</th>
+      <td>913</td>
+      <td>0x97CBdDB95B873145B324EC204614146b8e2A819E</td>
+      <td>0xd5724FA51BE16771DDF6Bf7E7091f07A59124Ab8</td>
+      <td>10.801569</td>
+    </tr>
+    <tr>
+      <th>536</th>
+      <td>914</td>
+      <td>0x97CBdDB95B873145B324EC204614146b8e2A819E</td>
+      <td>0xd5724FA51BE16771DDF6Bf7E7091f07A59124Ab8</td>
+      <td>9.540392</td>
+    </tr>
+    <tr>
+      <th>537</th>
+      <td>915</td>
+      <td>0x97CBdDB95B873145B324EC204614146b8e2A819E</td>
+      <td>0xd5724FA51BE16771DDF6Bf7E7091f07A59124Ab8</td>
+      <td>9.537255</td>
+    </tr>
+    <tr>
+      <th>538</th>
+      <td>916</td>
+      <td>0x29A6ab6e62997cf35FFC434B84a427fB611742da</td>
+      <td>0xd5724FA51BE16771DDF6Bf7E7091f07A59124Ab8</td>
+      <td>9.934118</td>
+    </tr>
+    <tr>
+      <th>539</th>
+      <td>917</td>
+      <td>0x29A6ab6e62997cf35FFC434B84a427fB611742da</td>
+      <td>0xd5724FA51BE16771DDF6Bf7E7091f07A59124Ab8</td>
+      <td>9.314510</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>The final set of transactions all send to the banker.  That’s because the banker is responsible for collecting taxes from players.</p>
+
+<h2 id="ending-the-game">Ending the Game</h2>
+
+<p>The game ends whenever the organizer determines enough periods have passed.  The winning player is, of course, the one with the most money at the end.</p>
+
+
+<!-- Comments only for posts -->
+
+
+            </article>
+        </main>
+
+        <footer>
+          <p class="copy">
+            <small> © James Nordlund 2018-present<br> Email: james@nordlund.ai
+            </small>
+          </p>
+
+        <div class="rounded-social-buttons">
+<a title="" class="social-button linkedin" href="https://www.linkedin.com/in/jamesnordlund" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-linkedin"></i>
+</a><a title="" class="social-button github" href="https://www.github.com/jamesnordlund" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-github"></i>
+</a><a title="" class="social-button twitter" href="https://www.twitter.com/jamesnordlund" itemprop="sameAs" target="_blank" rel="noopener noreferrer">
+<i class="fab fa-twitter"></i>
+</a>
+</div>
+
+
+        </footer>
+
+        <!-- Google Analytics Tracking code -->
+<script src="https://cdn.jsdelivr.net/npm/ga-lite@1/dist/ga-lite.min.js" async></script>
+<script>
+var galite = galite || {};
+galite.UA = '';
+</script>
+
+    </body>
+
+</html>
