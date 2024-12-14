@@ -1,0 +1,1 @@
+FROM jamesnordlund/jekyll:latest
