@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nordlund.ai</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="terminal">
+        <div class="terminal-header">
+            <div class="terminal-controls">
+                <span class="control close"></span>
+                <span class="control minimize"></span>
+                <span class="control maximize"></span>
+            </div>
+            <div class="terminal-title">curriculum-vitae.el</div>
+            <div class="header-right">
+                <span class="theme-toggle clickable" id="themeToggle" title="Toggle theme (press 't')">
+                    Theme: <span id="themeName">dark</span>
+                </span>
+            </div>
+        </div>
+        
+        <div class="terminal-body">
+            <div class="prompt-line">
+                <span class="prompt">$</span>
+                <span class="command">cat cv.txt</span>
+            </div>
+            
+            <div class="content">
+                <header class="cv-header">
+                    <h1 class="name">JAMES NORDLUND</h1>
+                    <div class="title">SENIOR SCIENCE LEADER</div>
+                    <div class="contact-info">
+                        <span class="contact-item">
+                            <script>
+                                const user = "james";
+                                const domain = "nordlund.ai";
+                                document.write(`<a href="mailto:${user}@${domain}">${user}@${domain}</a>`);
+                              </script>
+                              <noscript></noscript>
+                        </span>
+                        <span class="separator">|</span>
+                        <span class="contact-item"><a href="https://linkedin.com/in/jamesnordlund">linkedin.com/in/jamesnordlund</a></span>
+                        <span class="separator">|</span>
+                        <span class="contact-item"><a href="https://github.com/jamesnordlund">github.com/jamesnordlund</a></span>
+                    </div>
+                </header>
+
+                <section class="cv-section">
+                    <h2 class="section-title">;; ABOUT</h2>
+                    <div class="section-content">
+                        <p>Senior leader with extensive experience leading applied science initiatives at scale. 
+                        Expert in building high-performing teams, driving data-driven decision making, and 
+                        delivering transformative AI/ML solutions that impact millions of users.</p>
+                    </div>
+                </section>
+
+                <section class="cv-section">
+                    <h2 class="section-title">;; PROFESSIONAL EXPERIENCE</h2>
+                    <div class="section-content">
+                        <div class="experience-item">
+                            <div class="experience-header">
+                                <span class="job-title">Head of Science, Worldwide Pricing and Promotions</span>
+                                <span class="company">Amazon</span>
+                                <span class="date">2022 - Present</span>
+                            </div>
+                            <ul class="experience-details">
+                                <li>Lead organization of applied scientists and economists across multiple product lines</li>
+                                <li>Architected and executed ML strategy for $10B+ sized businesses</li>
+                                <li>Mentored science leaders and established best practices</li>
+                                <li>Drove cross-functional initiatives with product, engineering, and business teams</li>
+                            </ul>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="experience-header">
+                                <span class="job-title">Director of FinTech Innovations Lab</span>
+                                <span class="company">LSU</span>
+                                <span class="date">2017 - 2022</span>
+                            </div>
+                            <ul class="experience-details">
+                                <li>Established a new research lab and the recruiting/training of staff</li>
+                                <li>Designed, built, and administered a local cloud compute server to scale ML initiatives</li>
+                                <li>Owned research projects on causal spillover effects and network effects</li>
+                                <li>Lead the development of NLP-based AI models for financial research</li>
+                            </ul>
+                        </div>
+
+                        <div class="experience-item">
+                            <div class="experience-header">
+                                <span class="job-title">Research Scientist and Technical Lead</span>
+                                <span class="company">Texas A&M University</span>
+                                <span class="date">2011 - 2017</span>
+                            </div>
+                            <ul class="experience-details">
+                                <li>Owned the migration of existing research resources to a new HPC cluster</li>
+                                <li>Developed statistical/mathematical models in R, Python, Stata, SAS, and Matlab</li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="cv-section">
+                    <h2 class="section-title">;; TECHNICAL EXPERTISE</h2>
+                    <div class="section-content">
+                        <div class="skills-grid">
+                            <div class="skill-category">
+                                <span class="skill-label">Languages:</span>
+                                <span class="skill-values">Python, R, SAS, SQL, Stata, Scala</span>
+                            </div>
+                            <div class="skill-category">
+                                <span class="skill-label">ML/AI:</span>
+                                <span class="skill-values">EC2, EMR, PyTorch, Sagemaker, Scikit-learn, XGBoost, Spark MLlib</span>
+                            </div>
+                            <div class="skill-category">
+                                <span class="skill-label">Infrastructure:</span>
+                                <span class="skill-values">AWS, GCP, Docker, Airflow, MLflow</span>
+                            </div>
+                            <div class="skill-category">
+                                <span class="skill-label">Data:</span>
+                                <span class="skill-values">Spark, Redshift</span>
+                            </div>
+                            <div class="skill-category">
+                                <span class="skill-label">Tools:</span>
+                                <span class="skill-values">Git, Jupyter, Linux, CI/CD</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="cv-section">
+                    <h2 class="section-title">;; EDUCATION</h2>
+                    <div class="section-content">
+                        <div class="education-item">
+                            <div class="education-header">
+                                <span class="degree">Ph.D. in Financial Economics</span>
+                                <span class="institution">Texas A&M University</span>
+                            </div>
+                        </div>
+                        <div class="education-item">
+                            <div class="education-header">
+                                <span class="degree">B.A. in Mathematics</span>
+                                <span class="institution">Trinity University</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!--
+                <section class="cv-section">
+                    <h2 class="section-title">;; SELECTED ACHIEVEMENTS</h2>
+                    <div class="section-content">
+                        <ul class="achievements-list">
+                            <li>TBD</li>
+                        </ul>
+                    </div>
+                </section>
+                -->
+
+                <footer class="cv-footer">
+                    <div class="footer-line">
+                        <span class="prompt">$</span>
+                        <span class="cursor-blink">_</span>
+                    </div>
+                </footer>
+            </div>
+        </div>
+        
+        <!-- Emacs-style mode line -->
+        <div class="mode-line" id="modeLine">
+            <span class="mode-line-left">--:--</span>
+            <span class="mode-line-center">CV</span>
+            <span class="mode-line-right">
+                <span class="mode-line-separator">--</span>
+            </span>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
